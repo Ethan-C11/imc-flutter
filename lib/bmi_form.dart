@@ -43,10 +43,10 @@ class BmiFormState extends State<BmiForm> {
   @override
   Widget build(BuildContext context) {
 
-    void onButtonPress(int? poids, int? taille){
+    void onButtonPress(int? poids, int? taille) async {
       double imc = BodyMassIndex.calculerIMC(poids, taille);
       if(imc == 0) {
-        showDialog(
+        await showDialog(
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
