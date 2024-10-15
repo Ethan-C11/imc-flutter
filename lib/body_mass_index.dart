@@ -1,72 +1,28 @@
-import 'package:flutter/material.dart';
-import 'package:imc/text_input.dart';
-import './enum_type_input.dart';
+import './enum_imc_type.dart';
 
-class BodyMassIndex extends StatefulWidget {
-  const BodyMassIndex({super.key, required this.title});
+class BodyMassIndex {
+  static double calculerIMC(int? _poids, int? _taille) {
+    if (_poids == 0 || _taille == 0 || _poids == null || _taille == null) {
+      return 0;
+    } else {
+      double tailleTemp = _taille / 100;
+      double imc = _poids / (tailleTemp * tailleTemp);
 
-  final String title;
-
-  @override
-  State<BodyMassIndex> createState() => BodyMassIndexState();
-}
-
-class BodyMassIndexState extends State<BodyMassIndex> {
-  int _taille = 0;
-  int _poids = 0;
-  double _imc = 0;
-
-  void imcSetTaille(int taille) {
-    setState(() {
-      _taille = taille;
-    });
+      return imc;
+    }
   }
 
-  void imcSetPoids(int poids) {
-    setState(() {
-      _poids = poids;
-    });
-  }
-
-  void _calculerIMC() {
-    double _tailleTemp = _taille / 100;
-    setState(() {
-      _imc = _poids / (_tailleTemp * _tailleTemp);
-    });
-  }
-
-  Widget _cleanBuild(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: textInput(EnumTypeInput.taille, this)),
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: textInput(EnumTypeInput.poids, this))
-          ]),
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                onPressed: _calculerIMC,
-                child: const Text("Calculer votre IMC"),
-              )),
-          Text('votre IMC est de $_imc'),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-        ),
-        body: _cleanBuild(context));
+  static EnumImcType getImcType(double imc) {
+    late EnumImcType imcType;
+    if (imc < 18.5) {
+      imcType = EnumImcType.underweight;
+    } else if (imc >= 18.5 && imc < 25) {
+      imcType = EnumImcType.normal;
+    } else if (imc >= 25 && imc < 30) {
+      imcType = EnumImcType.overweight;
+    } else {
+      imcType = EnumImcType.obesity;
+    }
+    return imcType;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './body_mass_index.dart';
+import 'bmi_form.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
-      home: const BodyMassIndex(title: 'Calculateur d\'IMC'),
+      home: const BmiForm(title: 'Calculateur d\'IMC'),
     );
   }
 }
