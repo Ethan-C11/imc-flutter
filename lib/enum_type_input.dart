@@ -1,0 +1,4 @@
+enum EnumTypeInput {
+  taille,
+  poids,
+}
